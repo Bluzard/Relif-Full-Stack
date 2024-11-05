@@ -89,7 +89,7 @@ export const clientController = {
 
     createClient: async (ctx: Context) => {
         try {
-            const { name, rut, messages = [], debts = [] } = ctx.request.body;
+            const { name, rut, messages = [], debts = [] } = ctx.request.body as { name: string, rut: string, messages?: any[], debts?: any[] };
 
             // Crear el cliente
             const client = clientRepository.create({ name, rut });
@@ -144,7 +144,7 @@ export const clientController = {
     addMessage: async (ctx: Context) => {
         try {
             const clientId = parseInt(ctx.params.id);
-            const { text, role, sentAt } = ctx.request.body;
+            const { text, role, sentAt } = ctx.request.body as { text: string, role: string, sentAt?: string };
 
             const client = await clientRepository.findOneBy({ id: clientId });
             
@@ -156,7 +156,7 @@ export const clientController = {
 
             const message = messageRepository.create({
                 text,
-                role,
+                role: role as 'client' | 'agent',
                 sentAt: new Date(sentAt || Date.now()),
                 client
             });

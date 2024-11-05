@@ -40,7 +40,7 @@ export const messageController = {
 
     createMessage: async (ctx: Context) => {
         try {
-            const { text, role, clientId } = ctx.request.body;
+            const { text, role, clientId } = ctx.request.body as { text: string, role: string, clientId: number };
 
             const client = await clientRepository.findOneBy({ id: clientId });
             if (!client) {
@@ -51,7 +51,7 @@ export const messageController = {
 
             const message = messageRepository.create({
                 text,
-                role,
+                role: role as 'client' | 'agent',
                 sentAt: new Date(),
                 client
             });
@@ -76,9 +76,11 @@ export const messageController = {
             }
 
             // Update message properties
-            const { text, role } = ctx.request.body;
+            const { text, role } = ctx.request.body as { text: string, role: string };
             message.text = text || message.text;
-            message.role = role || message.role;
+            if (role === 'client' || role === 'agent') {
+                message.role = role;
+            }
 
             await messageRepository.save(message);
             ctx.body = message;

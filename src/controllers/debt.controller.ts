@@ -43,7 +43,7 @@ export const debtController = {
                 return;
             }
 
-            const { institution, amount, dueDate } = ctx.request.body;
+            const { institution, amount, dueDate } = ctx.request.body as { institution: string, amount: number, dueDate: Date };
             const debt = debtRepository.create({
                 institution,
                 amount,
@@ -63,7 +63,7 @@ export const debtController = {
     updateDebt: async (ctx: Context) => {
         try {
             const debtId = parseInt(ctx.params.debtId);
-            const { institution, amount, dueDate } = ctx.request.body;
+            const { institution, amount, dueDate } = ctx.request.body as { institution: string, amount: number, dueDate: Date };
 
             const debt = await debtRepository.findOneBy({ id: debtId });
 

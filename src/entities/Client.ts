@@ -1,4 +1,3 @@
-// src/entities/Client.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Message } from './Message';
 import { Debt } from './Debt';
@@ -6,17 +5,19 @@ import { Debt } from './Debt';
 @Entity()
 export class Client {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
     @Column()
-    name: string;
+    name: string = '';
 
     @Column()
-    rut: string;
+    rut: string = '';
 
     @OneToMany(() => Message, message => message.client)
-    messages: Message[];
+    messages!: Message[];
+
+
 
     @OneToMany(() => Debt, debt => debt.client)
-    debts: Debt[];
+    debts!: Debt[];
 }

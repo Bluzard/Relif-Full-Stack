@@ -4,20 +4,20 @@ import { Client } from './Client';
 @Entity()
 export class Message {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
     @Column()
-    text: string;
+    text: string = '';
 
     @Column({
         type: 'varchar',
         enum: ['client', 'agent']
     })
-    role: 'client' | 'agent';
+    role!: 'client' | 'agent';
 
     @Column('timestamp')
-    sentAt: Date;
+    sentAt: Date = new Date();
 
     @ManyToOne(() => Client, client => client.messages)
-    client: Client;
+    client!: Client;
 }
