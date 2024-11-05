@@ -9,7 +9,7 @@ dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL || "postgres://postgres:admin@host.docker.internal:5432/relif",
     synchronize: true, // En producción debería ser false
     logging: false,
     entities: [Client, Message, Debt],

@@ -5,17 +5,17 @@ import { Client } from './Client';
 @Entity()
 export class Debt {
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
     @Column()
-    institution: string;
+    institution: string = '';
 
     @Column('integer')
-    amount: number;
+    amount: number = 0;
 
     @Column('timestamp')
-    dueDate: Date;
+    dueDate: Date = new Date();
 
     @ManyToOne(() => Client, client => client.debts)
-    client: Client;
+    client!: Client;
 }
