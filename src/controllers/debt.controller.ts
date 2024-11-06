@@ -1,4 +1,3 @@
-// src/controllers/debt.controller.ts
 import { Context } from 'koa';
 import { AppDataSource } from '../config/database';
 import { Debt } from '../entities/Debt';
@@ -6,6 +5,15 @@ import { Client } from '../entities/Client';
 
 const debtRepository = AppDataSource.getRepository(Debt);
 const clientRepository = AppDataSource.getRepository(Client);
+
+/**
+    * Controlador de deudas
+    * Este controlador contiene las funciones para manejar las deudas de los clientes en la base de datos.
+    * Se relaciona con la entidad de Cliente (Client) a través de una relación ManyToOne.
+    * De esta manera se pueden obtener todas las deudas de un cliente en particular.
+*/
+
+
 
 export const debtController = {
     // Obtener todas las deudas de un cliente por su ID

@@ -10,7 +10,16 @@ const clientRepository = AppDataSource.getRepository(Client);
 const messageRepository = AppDataSource.getRepository(Message);
 const debtRepository = AppDataSource.getRepository(Debt);
 
+
+/**
+    * Controlador para manejar los clientes
+    * Los métodos de este controlador permiten obtener, crear y actualizar clientes.
+    * También permite obtener los clientes que necesitan seguimiento y generar mensajes para los clientes.
+    * Estos metodos son usados por las rutas definidas en src/routes/client.routes.ts para manejar las peticiones HTTP.
+*/
+
 export const clientController = {
+    // Obtener todos los clientes
     getAllClients: async (ctx: Context) => {
         try {
             // Solo devolvemos los campos requeridos
@@ -27,6 +36,7 @@ export const clientController = {
         }
     },
 
+    // Obtener un cliente por su id
     getClientById: async (ctx: Context) => {
         try {
             const client = await clientRepository.findOne({
@@ -53,6 +63,7 @@ export const clientController = {
         }
     },
 
+    // Obtener los clientes que necesitan seguimiento
     getClientsToFollowUp: async (ctx: Context) => {
         try {
             console.log("Fetching clients for follow-up");
@@ -87,6 +98,7 @@ export const clientController = {
         }
     },
 
+    // Crear un nuevo cliente
     createClient: async (ctx: Context) => {
         try {
             const { name, rut, messages = [], debts = [] } = ctx.request.body as { name: string, rut: string, messages?: any[], debts?: any[] };
@@ -141,6 +153,7 @@ export const clientController = {
         }
     },
 
+    // Agregar un mensaje a un cliente
     addMessage: async (ctx: Context) => {
         try {
             const clientId = parseInt(ctx.params.id);
@@ -172,6 +185,7 @@ export const clientController = {
         }
     },
 
+    // Generar un mensaje para un cliente
     generateMessage: async (ctx: Context) => {
         try {
             const client = await clientRepository.findOne({

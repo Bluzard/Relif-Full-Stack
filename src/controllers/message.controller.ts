@@ -7,6 +7,13 @@ import { Client } from '../entities/Client';
 const messageRepository = AppDataSource.getRepository(Message);
 const clientRepository = AppDataSource.getRepository(Client);
 
+/**
+    * Controlador para manejar los mensajes
+    * Se utiliza al cliente para relacionar los mensajes.
+    * De esta manera se puede obtener los mensajes de un cliente en particular.
+    * CRUD de mensajes.
+*/
+
 export const messageController = {
     getAllMessages: async (ctx: Context) => {
         try {
@@ -18,6 +25,7 @@ export const messageController = {
         }
     },
 
+    // Obtener un mensaje por su ID
     getMessageById: async (ctx: Context) => {
         try {
             const message = await messageRepository.findOne({
@@ -38,6 +46,7 @@ export const messageController = {
         }
     },
 
+    // Crear un mensaje
     createMessage: async (ctx: Context) => {
         try {
             const { text, role, clientId } = ctx.request.body as { text: string, role: string, clientId: number };
@@ -64,6 +73,7 @@ export const messageController = {
         }
     },
 
+    // Actualizar un mensaje
     updateMessage: async (ctx: Context) => {
         try {
             const messageId = parseInt(ctx.params.id);
@@ -75,7 +85,6 @@ export const messageController = {
                 return;
             }
 
-            // Update message properties
             const { text, role } = ctx.request.body as { text: string, role: string };
             message.text = text || message.text;
             if (role === 'client' || role === 'agent') {
@@ -90,6 +99,7 @@ export const messageController = {
         }
     },
 
+    // Eliminar un mensaje
     deleteMessage: async (ctx: Context) => {
         try {
             const messageId = parseInt(ctx.params.id);
@@ -102,7 +112,7 @@ export const messageController = {
             }
 
             await messageRepository.remove(message);
-            ctx.status = 204; // No Content
+            ctx.status = 204; 
         } catch (error) {
             ctx.status = 500;
             ctx.body = { error: "Error deleting message" };

@@ -1,9 +1,16 @@
-// src/services/openai.service.ts
 import OpenAI from 'openai';
 import { Client } from '../entities/Client';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+/**
+ * Servicio para generar respuestas de Bot usando OpenAI.
+ * Agregar Api key la cual deberia estar en el cloud run como variable entorno pero aqui se puede agregar directamente, esta "vacio" debido 
+ * a que no se puede subir la api key a github.
+ * el prompt permite agregar un contexto para que el modelo de lenguaje de OpenAI pueda generar una respuesta adecuada segun el mensaje del cliente.
+ * Tambien cuenta con cierta configuracion para el modelo de lenguaje.
+*/
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || '',
