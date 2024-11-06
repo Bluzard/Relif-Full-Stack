@@ -104,11 +104,35 @@ curl http://localhost:3000/clients/1/generateMessage
 
 ## Generación de Mensajes con IA
 
-El sistema utiliza OpenAI para generar respuestas automáticas considerando:
-- Historial de conversación
-- Estado de deudas del cliente
-- Modelos de autos disponibles
-- Ubicaciones de venta
+La generación de mensajes automáticos se basa en el uso de la API de OpenAI. El sistema utiliza un prompt estructurado que incluye:
+
+### Contexto del Vendedor
+- Rol: Catalina, vendedora con 15 años de experiencia
+- Empresa: Zeller
+- Ubicaciones: Las Condes y Vitacura
+
+### Información del Cliente
+- Nombre del cliente
+- Historial de mensajes
+- Estado financiero (deudas registradas)
+
+### Catálogo de Vehículos
+- BMW (X5, Serie 7, i4)
+- Mercedes-Benz (GLE, Clase S, EQS)
+- Audi (Q8, A8, e-tron GT)
+- Tesla (Model S, Model 3, Model X)
+- Porsche (Cayenne, Panamera, Taycan)
+- Jaguar (F-PACE, I-PACE, XF)
+- Land Rover (Range Rover, Discovery, Defender)
+
+### Reglas de Respuesta
+- Mantener un tono amable y profesional
+- Adaptación según estado financiero del cliente
+- Recomendación de modelos específicos
+- Invitación a visitar sucursales
+- Respuestas concisas pero informativas
+
+El sistema utiliza GPT-4 con un ajuste de temperatura de 0.7 para generar respuestas naturales y coherentes, limitadas a 200 tokens para mantener la concisión.
 
 ## Estructura del Proyecto
 
